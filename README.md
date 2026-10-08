@@ -1,68 +1,130 @@
-# CodeIgniter 4 Application Starter
+# Robotix19
 
-## What is CodeIgniter?
+Boutique **fictive** de robots humanoïdes **réels** pour les particuliers, avec son club : un projet de BTS SIO, option SLAM, réalisé avec **CodeIgniter 4** et **SQL Server**.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+![Page d'accueil de Robotix](docs/captures/reel-accueil.png)
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## Le vrai et le fictif
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+| Réel et vérifié | Fictif (pour la démonstration) |
+|---|---|
+| 10 robots humanoïdes (Unitree G1, Figure 02, Reachy 2, Pepper, XPeng Iron, Ameca, AgiBot X2, ARI, Poppy, iCub), leurs caractéristiques et leur statut commercial | La boutique Robotix, ses prix et ses stocks |
+| Les 10 marques : siège social, année de création, site officiel | Les showrooms de Lyon, Paris et Marseille |
+| Les photos, sous licence libre (Wikimedia Commons), avec leurs crédits | Le club, ses membres, ses animateurs et ses événements |
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+Les sources de chaque information sont listées dans [`docs/sources-robots.md`](docs/sources-robots.md).
 
-## Installation & updates
+## Fonctionnalités
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+**Robotix Store et vitrine**
+- Catalogue filtrable, fiche robot avec anatomie interactive (`<map>`/`<area>`), galerie et crédits photos
+- Calculateur de prix en JavaScript : options, quantité, financement
+- Planning des événements par mois, cartes Google Maps des showrooms, formulaire de contact contrôlé
+- Bandeau de consentement aux cookies (RGPD) : Google Maps ne se charge qu'après accord
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+**Club Robotix**
+- Inscription avec mot de passe haché, formule d'adhésion et prix réduit selon la catégorie d'âge
+- Espace membre (inscription aux événements, événements suivis) et espace animateur (présences, travail réalisé)
+- Remplacement des animateurs (relation réflexive) ; panier de réservations enregistré en base
 
-## Setup
+**Administration**
+- Planning (CRUD avec contrôle des chevauchements), adhérents, statistiques, animateurs
+- Rapports SQL Server : 5 procédures stockées, 3 déclencheurs, 2 vues
+- Journal des actions, réinitialisation du jeu de démonstration
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+**Sécurité**
+- Limite des tentatives de connexion (5 par compte, 20 par adresse IP, blocage de 15 minutes)
+- Mot de passe oublié : lien à usage unique valable 1 heure, seule l'empreinte SHA-256 du jeton est stockée
+- Jeton CSRF, requêtes préparées, en-têtes de sécurité, contrôle des fichiers envoyés
 
-## Important Change with index.php
+| Store | Fiche robot |
+|---|---|
+| ![Catalogue du Store](docs/captures/reel-store.png) | ![Fiche du robot XPeng Iron](docs/captures/reel-fiche.png) |
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+## Technologies
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+- **Serveur** : PHP 8.1, CodeIgniter 4.6 (MVC, filtres, Query Builder), couche PDO (`pdo_sqlsrv`)
+- **Base de données** : SQL Server 2022 — migrations, procédures stockées, déclencheurs et vues en T-SQL
+- **Interface** : HTML5 validé W3C, Bootstrap 5.3, CSS personnel, JavaScript sans bibliothèque
+- **Tests** : PHPUnit 10 (plus de 260 tests, chacun dans une transaction annulée) et `node:test` pour le JavaScript
 
-**Please** read the user guide for a better explanation of how CI4 works!
+## Installation
 
-## Repository Management
+Prérequis :
+- PHP 8.1 ou plus, avec les extensions `sqlsrv`, `pdo_sqlsrv`, `intl` et `mbstring` ;
+- Composer ;
+- SQL Server avec une base vide (par exemple `Robotix58`).
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+1. Installer les dépendances :
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+   ```bash
+   composer install
+   ```
 
-## Server Requirements
+2. Créer un fichier `.env` à la racine avec la connexion à la base (ce fichier n'est jamais publié) :
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+   ```ini
+   CI_ENVIRONMENT = development
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+   database.default.hostname = MON-SERVEUR
+   database.default.database = Robotix58
+   database.default.username = mon_utilisateur
+   database.default.password = mon_mot_de_passe
+   database.default.DBDriver = SQLSRV
+   database.default.port     = 1433
+   database.default.charset  = utf8
+   ```
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+   Le charset doit valoir `utf8` : avec `utf8mb4`, les accents sont mal enregistrés par SQL Server.
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+3. Créer les tables et le jeu d'essai :
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+   ```bash
+   php spark migrate
+   php spark db:seed RobotixSeeder
+   ```
+
+4. Lancer le site :
+
+   ```bash
+   php spark serve
+   ```
+
+   Pour servir le site sur un autre port (8080 par exemple), définir aussi `app_baseURL=http://localhost:8080/` dans l'environnement.
+
+Les dates du jeu d'essai sont décalées automatiquement sur la semaine en cours : les événements restent toujours à venir. Avant une présentation, utilisez **Compte → Jeu de démonstration → Réinitialiser la démo**.
+
+## Comptes de démonstration
+
+Mot de passe commun : `Robotix2026!`. La connexion se fait par e-mail ou par pseudo.
+
+| Rôle | Identifiant |
+|---|---|
+| Administrateur | `admin@robotix.test` |
+| Animateur | `karim.h` |
+| Membre du club | `camille` |
+| Client hors club | `jules.moreau@exemple.fr` |
+
+## Tests et qualité
+
+Pour lancer les tests, copier `phpunit.xml.dist` en `phpunit.xml` et y renseigner la base de test.
+
+```bash
+php vendor/bin/phpunit --no-coverage    # tests PHP (base réelle, transactions annulées)
+node --test "tests/js/*.test.js"        # tests JavaScript
+powershell -ExecutionPolicy Bypass -File tools\w3c.ps1 -base http://localhost:8080/   # validation W3C
+powershell -ExecutionPolicy Bypass -File tools\sauvegarde-sql.ps1                     # script SQL de la base
+```
+
+## Documentation
+
+- Recettes (critères des grilles et manipulations) : [AP1](docs/recette-ap1.md), [AP2](docs/recette-ap2.md), [AP3](docs/recette-ap3.md)
+- Modèle conceptuel des données : [`docs/mcd-robotix.md`](docs/mcd-robotix.md) ; diagramme du club : [`docs/diagramme-ap3.md`](docs/diagramme-ap3.md)
+- Script SQL complet : [`docs/sql/robotix58.sql`](docs/sql/robotix58.sql)
+- Page « À propos du projet » dans le site : `/a-propos`
+
+## Crédits
+
+- Photos de robots : Wikimedia Commons, licences CC0, CC BY et CC BY-SA. L'auteur et la licence de chaque photo sont indiqués sur la page `/credits` du site.
+- Framework : [CodeIgniter 4](https://codeigniter.com), licence MIT. Le fichier [`LICENSE`](LICENSE) est celui du framework.
+- Projet réalisé par Ihab Benmahrouz, BTS SIO option SLAM.
