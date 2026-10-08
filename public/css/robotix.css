@@ -1,0 +1,340 @@
+/* ==========================================================================
+   Robotix — feuille de style personnelle (surcharge Bootstrap 5)
+   ========================================================================== */
+
+:root {
+    --rbx-nuit: #0b1020;
+    --rbx-nuit-2: #141b33;
+    --rbx-cyan: #00d4ff;
+    --rbx-violet: #7c3aed;
+    --rbx-ambre: #f59e0b;
+    --rbx-vert: #10b981;
+    --rbx-clair: #f5f7fb;
+    --rbx-texte: #1e293b;
+    --rbx-gris: #64748b;
+    --rbx-rayon: 1rem;
+    --rbx-ombre: 0 10px 30px rgba(11, 16, 32, .12);
+    --rbx-titres: 'Orbitron', system-ui, sans-serif;
+    --rbx-police: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+body {
+    font-family: var(--rbx-police);
+    color: var(--rbx-texte);
+    background: var(--rbx-clair);
+    padding-top: 58px; /* hauteur de la barre de navigation fixe */
+}
+
+h1, h2, h3, .logo { font-family: var(--rbx-titres); letter-spacing: .02em; }
+a { color: var(--rbx-violet); }
+
+.lien-evitement {
+    position: absolute; top: .5rem; left: .5rem; z-index: 2000;
+    background: #fff; padding: .5rem 1rem; border-radius: .5rem;
+}
+
+/* ---------- Navigation ---------- */
+.bg-nuit { background: rgba(11, 16, 32, .96); transition: box-shadow .3s; }
+.navbar.defile { box-shadow: 0 4px 20px rgba(0, 0, 0, .35); }
+.logo { font-weight: 800; font-size: 1.35rem; color: #fff; }
+.logo span { color: var(--rbx-cyan); }
+.navbar .nav-link { color: #cbd5e1; font-weight: 600; position: relative; }
+.navbar .nav-link:hover, .navbar .nav-link:focus { color: #fff; }
+.navbar .nav-link.active { color: var(--rbx-cyan); }
+.navbar .btn-link { text-decoration: none; }
+
+@media (min-width: 992px) {
+    .navbar .nav-link.active::after {
+        content: '';
+        position: absolute; left: .5rem; right: .5rem; bottom: .15rem;
+        height: 2px; border-radius: 2px; background: var(--rbx-cyan);
+    }
+}
+
+/* ---------- Boutons ---------- */
+.btn-robotix {
+    background: linear-gradient(135deg, var(--rbx-cyan), var(--rbx-violet));
+    color: #fff; border: 0; border-radius: 999px;
+    padding: .7rem 1.6rem; font-weight: 600;
+    transition: transform .2s, box-shadow .2s;
+}
+.btn-robotix:hover, .btn-robotix:focus {
+    color: #fff; transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 212, 255, .35);
+}
+.btn-contour {
+    border: 2px solid var(--rbx-cyan); color: var(--rbx-cyan); background: transparent;
+    border-radius: 999px; padding: .6rem 1.5rem; font-weight: 600;
+}
+.btn-contour:hover, .btn-contour:focus { background: var(--rbx-cyan); color: var(--rbx-nuit); }
+
+/* ---------- Sections ---------- */
+.section { padding: 4.5rem 0; }
+.section--sombre { background: var(--rbx-nuit); color: #e2e8f0; }
+.titre-section { text-align: center; font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 1rem; }
+.titre-section::after {
+    content: ''; display: block; width: 64px; height: 4px; margin: .8rem auto 0;
+    border-radius: 4px; background: linear-gradient(90deg, var(--rbx-cyan), var(--rbx-violet));
+}
+.en-tete-page { background: var(--rbx-nuit); color: #fff; padding: 3rem 0 2.5rem; }
+.en-tete-page h1 { font-size: clamp(1.7rem, 4vw, 2.6rem); }
+.en-tete-page p { color: #cbd5e1; margin: 0; }
+
+/* ---------- Bandeau d'accueil ---------- */
+.hero {
+    color: #fff; padding: 4.5rem 0 4rem; overflow: hidden;
+    background:
+        radial-gradient(circle at 80% 20%, rgba(124, 58, 237, .45), transparent 50%),
+        radial-gradient(circle at 10% 90%, rgba(0, 212, 255, .30), transparent 45%),
+        var(--rbx-nuit);
+}
+.hero__surtitre { color: var(--rbx-cyan); text-transform: uppercase; letter-spacing: .15em; font-weight: 700; font-size: .85rem; }
+.hero h1 { font-size: clamp(1.9rem, 5vw, 3.3rem); font-weight: 800; }
+.hero h1 em { font-style: normal; color: var(--rbx-cyan); }
+.hero p { color: #cbd5e1; font-size: 1.1rem; max-width: 36rem; }
+.hero__visuel {
+    max-height: 420px; width: auto;
+    animation: flotter 5s ease-in-out infinite;
+    filter: drop-shadow(0 20px 40px rgba(0, 212, 255, .25));
+}
+@keyframes flotter {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+}
+
+/* ---------- Univers ---------- */
+.univers {
+    background: #fff; border-radius: var(--rbx-rayon); padding: 2rem; height: 100%;
+    box-shadow: var(--rbx-ombre); border-top: 4px solid var(--rbx-cyan);
+    transition: transform .25s;
+}
+.univers:hover { transform: translateY(-6px); }
+.univers--violet { border-top-color: var(--rbx-violet); }
+.univers--ambre { border-top-color: var(--rbx-ambre); }
+.univers__icone { font-size: 2.2rem; margin-bottom: .5rem; }
+
+/* ---------- Pied de page ---------- */
+.site-footer { background: var(--rbx-nuit); color: #94a3b8; padding: 3rem 0 1.5rem; }
+.site-footer a { color: #cbd5e1; text-decoration: none; }
+.site-footer a:hover, .site-footer a:focus { color: var(--rbx-cyan); }
+.site-footer__mentions { border-top: 1px solid #1e293b; margin: 2rem 0 0; padding-top: 1.2rem; font-size: .85rem; }
+
+/* ---------- Accessibilité ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------- Cartes robots (images réactives au survol) ---------- */
+.carte-robot {
+    background: #fff; border-radius: var(--rbx-rayon); overflow: hidden; height: 100%;
+    box-shadow: var(--rbx-ombre); transition: transform .25s, box-shadow .25s;
+}
+.carte-robot:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(11, 16, 32, .2); }
+.carte-robot__visuel { display: block; position: relative; overflow: hidden; aspect-ratio: 4 / 5; }
+.carte-robot__img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s, opacity .4s; }
+.carte-robot__img--survol { position: absolute; inset: 0; opacity: 0; }
+.carte-robot:hover .carte-robot__img { transform: scale(1.06); }
+.carte-robot:hover .carte-robot__img--survol { opacity: 1; }
+.carte-robot__corps { padding: 1rem 1.2rem 1.3rem; }
+.carte-robot__marque { color: var(--rbx-gris); font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .3rem; }
+.carte-robot__nom { font-size: 1.05rem; margin-bottom: .4rem; }
+.carte-robot__nom a { color: var(--rbx-texte); text-decoration: none; }
+.carte-robot__nom a::after { content: ''; position: absolute; inset: 0; } /* toute la carte est cliquable */
+.carte-robot { position: relative; }
+.carte-robot__prix { font-weight: 700; color: var(--rbx-violet); margin: 0; }
+
+/* ---------- Image réactive (zones <area>) ---------- */
+.image-map { position: relative; max-width: 420px; margin: 0 auto; }
+.image-map img { display: block; width: 100%; height: auto; }
+.image-map__surbrillance {
+    position: absolute; pointer-events: none; border-radius: 1rem;
+    border: 2px solid var(--rbx-cyan); background: rgba(0, 212, 255, .18);
+    box-shadow: 0 0 24px rgba(0, 212, 255, .6);
+}
+.image-map__info {
+    background: var(--rbx-nuit-2); border-left: 4px solid var(--rbx-cyan);
+    border-radius: var(--rbx-rayon); padding: 1.5rem; min-height: 8rem;
+}
+.image-map__liste { list-style: none; padding: 0; margin: 1.5rem 0 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+
+/* ---------- Pastilles de type d'événement ---------- */
+.pastille { display: inline-block; width: .7rem; height: .7rem; border-radius: 50%; margin-right: .4rem; vertical-align: middle; }
+.pastille--demo { background: var(--rbx-cyan); }
+.pastille--lancement { background: var(--rbx-violet); }
+.pastille--salon { background: var(--rbx-ambre); }
+.pastille--atelier { background: var(--rbx-vert); }
+
+/* ---------- Catalogue ---------- */
+.filtres { background: #fff; border-radius: var(--rbx-rayon); padding: 1.5rem; box-shadow: var(--rbx-ombre); }
+
+/* ---------- Fiche robot et galerie ---------- */
+.fiche__prix { font-family: var(--rbx-titres); font-size: 2rem; color: var(--rbx-violet); margin-bottom: .2rem; }
+.galerie__principale {
+    display: block; width: 100%; padding: 0; border: 0; cursor: zoom-in;
+    border-radius: var(--rbx-rayon); overflow: hidden; box-shadow: var(--rbx-ombre); background: var(--rbx-nuit);
+}
+.galerie__principale img { width: 100%; height: auto; transition: transform .4s; }
+.galerie__principale:hover img { transform: scale(1.04); }
+.galerie__vignettes { display: flex; gap: .75rem; margin-top: 1rem; }
+.galerie__vignette {
+    padding: 0; border: 3px solid transparent; border-radius: .6rem; overflow: hidden;
+    background: none; opacity: .7; transition: opacity .2s, border-color .2s;
+}
+.galerie__vignette:hover, .galerie__vignette.active { opacity: 1; border-color: var(--rbx-cyan); }
+.galerie__vignette img { display: block; width: 80px; height: auto; }
+
+/* ---------- Visionneuse (popup) ---------- */
+.lightbox {
+    position: fixed; inset: 0; z-index: 1080;
+    display: flex; align-items: center; justify-content: center; gap: 1rem;
+    background: rgba(11, 16, 32, .92); padding: 1rem;
+}
+.lightbox[hidden] { display: none; }
+.lightbox__figure { margin: 0; text-align: center; color: #e2e8f0; }
+.lightbox__figure img { max-width: min(90vw, 520px); max-height: 80vh; width: auto; height: auto; border-radius: var(--rbx-rayon); }
+.lightbox__fermer, .lightbox__nav {
+    background: rgba(255, 255, 255, .12); color: #fff; border: 0; border-radius: 50%;
+    width: 3rem; height: 3rem; font-size: 1.8rem; line-height: 1;
+}
+.lightbox__fermer { position: absolute; top: 1rem; right: 1rem; }
+.lightbox__fermer:hover, .lightbox__nav:hover { background: var(--rbx-cyan); color: var(--rbx-nuit); }
+.sans-defilement { overflow: hidden; }
+
+/* ---------- Tarifs ---------- */
+.gamme {
+    background: #fff; border-radius: var(--rbx-rayon); padding: 1.8rem; height: 100%;
+    box-shadow: var(--rbx-ombre); text-align: center; border-bottom: 4px solid var(--rbx-violet);
+}
+.gamme__prix { font-family: var(--rbx-titres); font-size: 1.5rem; color: var(--rbx-violet); }
+.gamme__prix small { font-family: var(--rbx-police); font-size: .8rem; color: var(--rbx-gris); }
+.tableau-tarifs caption { caption-side: top; color: var(--rbx-gris); }
+
+/* ---------- Calculateur ---------- */
+.calculateur__panneau, .calculateur__resultat {
+    background: var(--rbx-nuit-2); border: 1px solid #1e293b; border-radius: var(--rbx-rayon); padding: 1.8rem; height: 100%;
+}
+.calculateur .form-label, .calculateur legend { color: #e2e8f0; font-weight: 600; }
+.calculateur .form-check-label { color: #cbd5e1; }
+.calculateur__lignes { display: grid; grid-template-columns: 1fr auto; gap: .6rem 1rem; margin-bottom: 1.5rem; }
+.calculateur__lignes dt { font-weight: 400; color: #94a3b8; }
+.calculateur__lignes dd { margin: 0; text-align: right; color: #fff; font-variant-numeric: tabular-nums; }
+.calculateur__total { font-size: 1.3rem; font-weight: 700; color: var(--rbx-cyan) !important; border-top: 1px solid #334155; padding-top: .6rem; }
+
+/* ---------- Calendrier ---------- */
+.calendrier, .detail-jour { background: #fff; border-radius: var(--rbx-rayon); padding: 1.5rem; box-shadow: var(--rbx-ombre); }
+.calendrier__barre { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.calendrier__titre { font-size: 1.3rem; margin: 0; flex: 1; min-width: 7rem; text-align: center; }
+.calendrier__table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 4px; }
+.calendrier__table th { text-align: center; font-size: .8rem; color: var(--rbx-gris); text-transform: uppercase; }
+.calendrier__jour {
+    width: 100%; min-height: 4.2rem; padding: .35rem; border: 1px solid #e2e8f0; border-radius: .6rem;
+    background: var(--rbx-clair); display: flex; flex-direction: column; align-items: flex-start; gap: .3rem;
+    transition: border-color .2s, background .2s;
+}
+.calendrier__jour:hover, .calendrier__jour:focus-visible { border-color: var(--rbx-cyan); background: #fff; }
+.calendrier__jour.hors-mois { opacity: .4; }
+.calendrier__jour.aujourdhui .calendrier__numero { background: var(--rbx-cyan); color: var(--rbx-nuit); border-radius: 50%; padding: 0 .4rem; }
+.calendrier__jour.choisi { border: 2px solid var(--rbx-violet); background: #fff; }
+.calendrier__numero { font-weight: 700; font-size: .9rem; }
+.calendrier__pastilles .pastille { margin-right: .15rem; }
+.legende { list-style: none; display: flex; flex-wrap: wrap; gap: 1rem; padding: 0; margin: 1rem 0 0; font-size: .9rem; }
+.detail-jour { position: sticky; top: 5rem; }
+.detail-jour__evenement { border-left: 3px solid var(--rbx-cyan); padding-left: .9rem; margin-top: 1.2rem; }
+@media (max-width: 575.98px) {
+    .calendrier__jour { min-height: 3rem; padding: .2rem; }
+    .calendrier__numero { font-size: .8rem; }
+}
+
+/* ---------- Showrooms et carte ---------- */
+.showrooms, .carte__info { background: #fff; border-radius: var(--rbx-rayon); padding: 1.5rem; box-shadow: var(--rbx-ombre); }
+.showrooms__liste { list-style: none; padding: 0; margin: 0; display: grid; gap: .6rem; }
+.showrooms__item {
+    width: 100%; text-align: left; padding: .9rem 1rem; border: 1px solid #e2e8f0; border-radius: .8rem;
+    background: var(--rbx-clair); transition: border-color .2s, background .2s;
+}
+.showrooms__item:hover, .showrooms__item.active { border-color: var(--rbx-cyan); background: #fff; }
+.showrooms__item.active { box-shadow: inset 4px 0 0 var(--rbx-cyan); }
+.carte { position: relative; border-radius: var(--rbx-rayon); overflow: hidden; box-shadow: var(--rbx-ombre); }
+.carte__iframe { display: block; width: 100%; height: clamp(300px, 55vh, 480px); border: 0; }
+.carte__zoom { position: absolute; top: .8rem; right: .8rem; display: grid; gap: .3rem; }
+.carte__zoom .btn { width: 2.4rem; height: 2.4rem; font-weight: 700; box-shadow: 0 2px 8px rgba(0, 0, 0, .25); }
+.carte__info { margin-top: 1rem; }
+
+/* ---------- Formulaires ---------- */
+.formulaire { background: #fff; border-radius: var(--rbx-rayon); padding: 2rem; box-shadow: var(--rbx-ombre); }
+.formulaire .form-control:focus, .formulaire .form-select:focus {
+    border-color: var(--rbx-cyan); box-shadow: 0 0 0 .2rem rgba(0, 212, 255, .25);
+}
+.formulaire--etroit { max-width: 640px; margin: 0 auto; }
+
+/* ---------- Formules d'adhésion ---------- */
+.formules { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.formule {
+    display: grid; gap: .2rem; padding: 1rem; border: 2px solid #e2e8f0; border-radius: .9rem;
+    cursor: pointer; background: var(--rbx-clair); transition: border-color .2s, background .2s;
+}
+.formule:hover { border-color: var(--rbx-cyan); }
+.formule input:checked ~ .formule__nom { color: var(--rbx-violet); }
+.formule input:checked ~ .formule__prix { color: var(--rbx-cyan); }
+.formule__nom { font-family: var(--rbx-titres); font-weight: 600; }
+.formule__prix { font-size: 1.3rem; font-weight: 700; color: var(--rbx-violet); }
+.formule__detail { font-size: .85rem; color: var(--rbx-gris); }
+
+/* ---------- Profil adhérent ---------- */
+.profil__photo { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 3px solid var(--rbx-cyan); background: var(--rbx-nuit-2); }
+.profil__infos { display: grid; grid-template-columns: max-content 1fr; gap: .5rem 1.2rem; margin: 0; }
+.profil__infos dt { font-weight: 600; color: var(--rbx-gris); }
+.profil__infos dd { margin: 0; }
+
+/* ---------- Back-office adhérents ---------- */
+.vignette-adherent { width: 40px; height: 40px; object-fit: cover; border-radius: 50%; background: var(--rbx-nuit-2); }
+
+/* ---------- Statistiques ---------- */
+.stat__valeur { font-family: var(--rbx-titres); font-size: 1.9rem; color: var(--rbx-violet); margin: .3rem 0 .6rem; }
+.barre { height: .9rem; border-radius: 999px; background: #e2e8f0; overflow: hidden; }
+.barre__remplissage { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--rbx-cyan), var(--rbx-violet)); }
+
+/* ---------- Réservations ---------- */
+.reservation__form { display: flex; gap: .5rem; align-items: center; }
+.reservation__form .form-control { width: 5rem; }
+
+/* ---------- Consentement aux cookies ---------- */
+.cookies {
+    position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 1090; max-width: 760px; margin: 0 auto;
+    background: var(--rbx-nuit); color: #e2e8f0; border: 1px solid #1e293b; border-radius: var(--rbx-rayon);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .45); padding: 1.2rem 1.4rem;
+}
+.cookies[hidden] { display: none; }
+.cookies__onglets { display: flex; border-bottom: 1px solid #334155; margin-bottom: 1rem; }
+.cookies__onglet { flex: 1; background: none; border: 0; color: #94a3b8; padding: .5rem; font-weight: 600; border-bottom: 3px solid transparent; }
+.cookies__onglet.active { color: var(--rbx-cyan); border-bottom-color: var(--rbx-cyan); }
+.cookies__panneau { font-size: .9rem; }
+.cookies__panneau code { color: var(--rbx-cyan); }
+.cookies__actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; margin-top: 1rem; }
+@media (max-width: 575.98px) { .cookies__actions { grid-template-columns: 1fr; } }
+.lien-bouton { background: none; border: 0; padding: 0; color: #cbd5e1; }
+.lien-bouton:hover, .lien-bouton:focus { color: var(--rbx-cyan); }
+.carte__consentement {
+    position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem;
+    background: var(--rbx-nuit-2); color: #e2e8f0; text-align: center; padding: 1.5rem;
+}
+.carte.autorise .carte__consentement { display: none; }
+
+/* ---------- Club Robotix ---------- */
+.animateur { background: var(--rbx-nuit-2); border-radius: var(--rbx-rayon); padding: 1.5rem; text-align: center; height: 100%; }
+.animateur img { border-radius: 50%; margin-bottom: .8rem; }
+.liste-suivis { list-style: none; padding: 0; display: grid; gap: .8rem; }
+.liste-suivis li { background: #fff; border-radius: .8rem; padding: .8rem 1rem; box-shadow: var(--rbx-ombre); }
+
+/* ---------- Photos réelles et crédits ---------- */
+.galerie__principale img, .carte-robot__img { object-fit: cover; }
+.galerie__principale img { aspect-ratio: 4 / 5; }
+.galerie__credits { list-style: none; padding: 0; margin: .8rem 0 0; font-size: .78rem; color: var(--rbx-gris); }
+.fiche__marque { display: grid; grid-template-columns: max-content 1fr; gap: .3rem 1rem; font-size: .95rem; }
+.fiche__marque dt { font-weight: 600; color: var(--rbx-gris); }
+.fiche__marque dd { margin: 0; }
+.hero__photo { margin: 0; }
+.hero__photo img { width: 100%; max-height: 460px; object-fit: cover; border-radius: var(--rbx-rayon); box-shadow: 0 20px 50px rgba(0, 0, 0, .45); }
+.hero__photo figcaption { font-size: .75rem; color: #94a3b8; margin-top: .4rem; text-align: right; }
+.hero__photo figcaption a { color: #cbd5e1; }
+.credits__vignette { width: 64px; height: 80px; object-fit: cover; border-radius: .4rem; }

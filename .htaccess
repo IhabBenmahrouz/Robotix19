@@ -1,0 +1,9 @@
+# Redirige toutes les requêtes vers le dossier public/ de CodeIgniter
+# (évite d'afficher la liste des fichiers du projet, dont le .env)
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^$ public/ [L]
+    RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
+</IfModule>
